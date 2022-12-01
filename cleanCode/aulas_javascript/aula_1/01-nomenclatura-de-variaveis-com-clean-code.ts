@@ -42,12 +42,12 @@ const userCategoriesRank = [
   
     const userCategory = orderedUserCategoriesRank.find(userCategoryItem => userData.followers > userCategoryItem.followers)
   
-    const result = {
-      username,
+    const userResult = {
+      username: username,
       category: userCategory?.title
     }
   
-    return result
+    return userResult
   }
   
   getUserData({ query: {
