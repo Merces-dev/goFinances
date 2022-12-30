@@ -15,16 +15,7 @@ async function getTime(){
     }while(true)
 
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const formatNumber = (num) =>{
-    if(num.toString().length == 1){
-        return "0" + num;
-    }else{
-        return num;
-    }
-}
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const formatNumber = (num) => num.toString().length == 1 ? "0" + num : num;    
 
 getTime()
