@@ -31,3 +31,11 @@ export const Form = styled.View`
     justify-content: space-between;
 `
 export const Fields = styled.View``
+
+export const TransactionButtons = styled.View`
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    
+    margin-top: ${RFValue(8)}px;
+`
