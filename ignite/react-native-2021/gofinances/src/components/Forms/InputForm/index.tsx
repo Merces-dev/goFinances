@@ -8,9 +8,10 @@ import { Input } from "../Input";
 interface IProps extends TextInputProps {
   control: Control;
   name: string;
+  error?: string;
 }
 
-export const InputForm = ({ control, name, ...rest }: IProps) => {
+export const InputForm = ({ control, name, error, ...rest }: IProps) => {
   return (
     <St.Container>
       <Controller
@@ -19,7 +20,8 @@ export const InputForm = ({ control, name, ...rest }: IProps) => {
           <Input onChangeText={onChange} value={value} {...rest} />
         )}
         name={name}
-      ></Controller>
+      />
+      {error && <St.Error>{error}</St.Error>}
     </St.Container>
   );
 };
