@@ -53,7 +53,9 @@ export function Dashboard() {
               <St.UserName>Giovani</St.UserName>
             </St.User>
           </St.UserInfo>
-          <St.Icon name="power" />
+          <St.Logout onPress={() => {}}>
+            <St.Icon name="power" />
+          </St.Logout>
         </St.HeaderWrapper>
       </St.Header>
       <St.HighlightCards>
