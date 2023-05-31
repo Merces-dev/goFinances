@@ -1,15 +1,12 @@
 import React from "react";
 import * as St from "./styles";
+import { categories } from "../../utils/categories";
 
-interface ICategory {
-  name: string;
-  icon: string;
-}
 export interface ITransactionCardProps {
   type: "positive" | "negative";
-  title: string;
+  name: string;
   amount: string;
-  category: ICategory;
+  category: string;
   date: string;
 }
 interface IProps {
@@ -17,17 +14,18 @@ interface IProps {
 }
 
 export const TransactionCard = ({ data }: IProps) => {
+  const category = categories.filter((item) => item.key == data.category)[0];
   return (
     <St.Container>
-      <St.Title>{data.title}</St.Title>
+      <St.Title>{data.name}</St.Title>
       <St.Amount type={data.type}>
         {data.type === "negative" && "- "}
         {data.amount}
       </St.Amount>
       <St.Footer>
         <St.Category>
-          <St.CategoryIcon name={data.category.icon}></St.CategoryIcon>
-          <St.CategoryName>{data.category.name}</St.CategoryName>
+          <St.CategoryIcon name={category.icon}></St.CategoryIcon>
+          <St.CategoryName>{category.name}</St.CategoryName>
         </St.Category>
         <St.Date>{data.date}</St.Date>
       </St.Footer>

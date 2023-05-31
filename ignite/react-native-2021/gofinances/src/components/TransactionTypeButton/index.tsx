@@ -3,12 +3,12 @@ import { TouchableOpacityProps } from "react-native";
 import * as St from "./styles";
 
 const icons = {
-  income: "arrow-up-circle",
-  outcome: "arrow-down-circle",
+  positive: "arrow-up-circle",
+  negative: "arrow-down-circle",
 };
 
 interface IProps extends TouchableOpacityProps {
-  type: "income" | "outcome";
+  type: "positive" | "negative";
   isActive: boolean;
 }
 

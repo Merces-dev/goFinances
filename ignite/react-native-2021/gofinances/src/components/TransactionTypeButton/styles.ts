@@ -5,10 +5,10 @@ import { TouchableOpacity } from "react-native";
 
 interface IButtonProps {
     isActive: boolean;
-    type: "income" | "outcome";
+    type: "positive" | "negative";
 }
 interface IIconsProps {
-    type: "income" | "outcome";
+    type: "positive" | "negative";
 }
 export const Button = styled(TouchableOpacity) <IButtonProps>`
     background-color: ${({ theme }) => theme.colors.background};
@@ -25,16 +25,16 @@ export const Button = styled(TouchableOpacity) <IButtonProps>`
 
     padding: ${RFValue(16)}px;
 
-    ${({ isActive, type }) => isActive && type === 'income' && css`
+    ${({ isActive, type }) => isActive && type === 'positive' && css`
         background-color: ${({ theme }) => theme.colors.success_light};
     `}
-    ${({ isActive, type }) => isActive && type === 'outcome' && css`
+    ${({ isActive, type }) => isActive && type === 'negative' && css`
         background-color: ${({ theme }) => theme.colors.attention_light};
     `}
 `
 export const Icon = styled(Feather) <IIconsProps>`
     font-size:${RFValue(24)}px;
-    color: ${({ theme, type }) => type == 'income' ? theme.colors.success : theme.colors.attention};
+    color: ${({ theme, type }) => type == 'positive' ? theme.colors.success : theme.colors.attention};
 
     margin-right: ${RFValue(12)}px;
 `
