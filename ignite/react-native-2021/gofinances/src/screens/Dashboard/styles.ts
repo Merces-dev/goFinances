@@ -81,7 +81,7 @@ export const Title = styled.Text`
     margin-bottom: ${RFValue(16)}px;
 `
 
-export const Transactions = styled.ScrollView`
+export const Transactions = styled.View`
     flex: 1;
     padding: 0 ${RFValue(24)}px;
     margin-top: ${RFPercentage(12)}px;
@@ -93,6 +93,13 @@ export const Transactions = styled.ScrollView`
 export const TransactionList = styled(
     FlatList as new (props: FlatListProps<IDataListProps>) => FlatList<IDataListProps>
 ).attrs({
+    horizontal:false,
     showsVerticalScrollIndicator: false,
     contentContainerStyle: { paddingBottom: getBottomSpace() }
 })``
+
+export const LoadContainer = styled.View`
+flex: 1;
+justify-content: center;
+align-items: center;
+`
