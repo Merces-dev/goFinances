@@ -27,7 +27,7 @@ interface IHighlightData {
 
 export function Dashboard() {
   const collectionKey = "@gofinances:transactions";
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [transactions, setTransactions] = useState<IDataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<IHighlightData>({
     entries: {
