@@ -27,9 +27,9 @@ interface IHighlightData {
 }
 
 export function Dashboard() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
-  const collectionKey = "@gofinances:transactions";
+  const collectionKey = `@gofinances:transactions_user:${user.id}`;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [transactions, setTransactions] = useState<IDataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<IHighlightData>({
@@ -52,17 +52,20 @@ export function Dashboard() {
     type: "positive" | "negative"
   ) => {
     let lastTransaction = null;
+    const filteredCollection = collection.filter(
+      (transaction: IDataListProps) => transaction.type === type
+    );
+
+    if (filteredCollection.length === 0) return 0;
+
     lastTransaction = new Date(
       Math.max.apply(
         Math,
-        collection
-          .filter((transaction: IDataListProps) => transaction.type === type)
-          .map((transaction: IDataListProps) =>
-            new Date(transaction.date).getTime()
-          )
+        filteredCollection.map((transaction: IDataListProps) =>
+          new Date(transaction.date).getTime()
+        )
       )
     );
-    console.log(lastTransaction);
     return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString(
       "pt-BR",
       { month: "long" }
@@ -113,21 +116,30 @@ export function Dashboard() {
       transactions,
       "negative"
     );
-    const totalInterval = `01 à ${lastTransactionsExpensives}`;
+    const totalInterval =
+      lastTransactionsExpensives === 0
+        ? "Não há transações"
+        : `01 à ${lastTransactionsExpensives}`;
     setHighlightData({
       entries: {
         amount: entriesAmount.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última entrada ${lastTransactionsEntries}`,
+        lastTransaction:
+          lastTransactionsEntries === 0
+            ? "Não há transações"
+            : `Última entrada ${lastTransactionsEntries}`,
       },
       expensives: {
         amount: expensiveAmount.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última saída ${lastTransactionsExpensives}`,
+        lastTransaction:
+          lastTransactionsExpensives === 0
+            ? "Não há transações"
+            : `Última saída ${lastTransactionsExpensives}`,
       },
       total: {
         amount: totalAmount.toLocaleString("pt-BR", {
@@ -164,12 +176,12 @@ export function Dashboard() {
               <St.UserInfo>
                 <St.Photo
                   source={{
-                    uri: "https://avatars.githubusercontent.com/u/61596432?v=4",
+                    uri: user.photo,
                   }}
                 />
                 <St.User>
                   <St.UserGreeting>Olá,</St.UserGreeting>
-                  <St.UserName>Giovani</St.UserName>
+                  <St.UserName>{user.name}</St.UserName>
                 </St.User>
               </St.UserInfo>
               <St.Logout

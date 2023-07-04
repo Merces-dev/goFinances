@@ -14,6 +14,7 @@ import { Button } from "../../components/Forms/Button";
 import { TransactionTypeButton } from "../../components/TransactionTypeButton";
 import { CategorySelectButton } from "../../components/Forms/CategorySelectButton";
 import { CategorySelect } from "../CategorySelect";
+import { useAuth } from "../../hooks/auth";
 
 interface IFormData {
   name: string;
@@ -38,7 +39,8 @@ export function Register() {
   });
   const [transactionType, setTransactionType] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-  const collectionKey = "@gofinances:transactions";
+  const { user } = useAuth();
+  const collectionKey = `@gofinances:transactions_user:${user.id}`;
 
   const {
     control,

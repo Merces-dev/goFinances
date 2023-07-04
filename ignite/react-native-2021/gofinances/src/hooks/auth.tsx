@@ -25,6 +25,7 @@ interface IAuthContextData {
   signInWithGoogle(): Promise<void>;
   signInWithApple(): Promise<void>;
   signOut(): Promise<void>;
+  isUserStoragedLoading: boolean;
 }
 
 interface AuthorizationResponse {
@@ -47,7 +48,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       response_type: "token",
       scope: "profile email",
     };
-    console.log(creds);
     const searchParams = new URLSearchParams(creds);
     const authUrl =
       "https://accounts.google.com/o/oauth2/v2/auth?" + searchParams.toString();
@@ -79,10 +79,13 @@ function AuthProvider({ children }: AuthProviderProps) {
         ],
       });
       if (creds) {
+        const name = creds.fullName!.givenName!;
+        const photo = `https://ui-avatars.com/api?name=${name}&length=1`;
         setUser({
           id: creds.user,
-          name: creds.fullName!.givenName!,
+          name,
           email: creds.email!,
+          photo,
         });
         await AsyncStorage.setItem(storageKey, JSON.stringify(user));
       }
@@ -112,6 +115,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         signInWithGoogle,
         signInWithApple,
         signOut,
+        isUserStoragedLoading,
       }}
     >
       {children}

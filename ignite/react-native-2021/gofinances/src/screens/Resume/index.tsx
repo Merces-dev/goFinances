@@ -13,6 +13,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { addMonths, format, subMonths } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { ActivityIndicator } from "react-native";
+import { useAuth } from "../../hooks/auth";
 
 interface CategoryData {
   name: string;
@@ -27,7 +28,8 @@ export const Resume = () => {
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     []
   );
-  const collectionKey = "@gofinances:transactions";
+  const { user } = useAuth();
+  const collectionKey = `@gofinances:transactions_user:${user.id}`;
   const theme = useTheme();
 
   const handleDateChange = (action: "next" | "prev") => {
@@ -119,7 +121,9 @@ export const Resume = () => {
           </St.MonthSelect>
           {totalByCategories.length <= 0 ? (
             <St.NoContentContainer>
-              <St.NoContentTitle>Sem dados para serem exibidos</St.NoContentTitle>
+              <St.NoContentTitle>
+                Sem dados para serem exibidos
+              </St.NoContentTitle>
             </St.NoContentContainer>
           ) : (
             <>

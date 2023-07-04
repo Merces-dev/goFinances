@@ -10,7 +10,7 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { StatusBar } from "react-native";
-import { AuthProvider } from "./src/hooks/auth";
+import { AuthProvider, useAuth } from "./src/hooks/auth";
 import { Routes } from "./src/routes";
 
 export default function App() {
@@ -19,8 +19,9 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold,
   });
+  const { isUserStoragedLoading } = useAuth();
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || isUserStoragedLoading) {
     return <AppLoading />;
   }
 
