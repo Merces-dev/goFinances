@@ -9,6 +9,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 import theme from "../../global/styles/theme";
+import { useAuth } from "../../hooks/auth";
 
 export interface IDataListProps extends ITransactionCardProps {
   id: string;
@@ -26,18 +27,23 @@ interface IHighlightData {
 }
 
 export function Dashboard() {
+  const { signOut } = useAuth();
+
   const collectionKey = "@gofinances:transactions";
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [transactions, setTransactions] = useState<IDataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<IHighlightData>({
     entries: {
       amount: "0",
+      lastTransaction: "",
     },
     expensives: {
       amount: "0",
+      lastTransaction: "",
     },
     total: {
       amount: "0",
+      lastTransaction: "",
     },
   });
 
@@ -69,8 +75,8 @@ export function Dashboard() {
     setIsLoading(true);
     const response = await AsyncStorage.getItem(collectionKey);
     const transactions = response ? JSON.parse(response) : [];
-    const transactionsFormatted: IDataListProps[] = transactions.map(
-      (item: IDataListProps) => {
+    const transactionsFormatted: IDataListProps[] = transactions
+      .map((item: IDataListProps) => {
         if (item.type === "positive") {
           entriesAmount += Number(item.amount);
         } else {
@@ -95,8 +101,8 @@ export function Dashboard() {
           type: item.type,
           category: item.category,
         };
-      }
-    )?.reverse();
+      })
+      ?.reverse();
 
     totalAmount = entriesAmount - expensiveAmount;
     const lastTransactionsEntries = getLastTransactionDate(
@@ -166,7 +172,11 @@ export function Dashboard() {
                   <St.UserName>Giovani</St.UserName>
                 </St.User>
               </St.UserInfo>
-              <St.Logout onPress={() => {}}>
+              <St.Logout
+                onPress={() => {
+                  signOut();
+                }}
+              >
                 <St.Icon name="power" />
               </St.Logout>
             </St.HeaderWrapper>

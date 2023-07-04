@@ -21,7 +21,7 @@ export function SignIn() {
       await signInWithApple();
     } catch (error) {
       console.log(error);
-      Alert.alert("Não foi possível conectar a conta Google");
+      Alert.alert("Não foi possível conectar a conta Apple");
     }
   }
 

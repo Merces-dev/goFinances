@@ -61,7 +61,7 @@ export const Icon = styled(Feather)`
     color: ${({ theme }) => theme.colors.secondary};
     font-size: ${RFValue(24)}px;
 `
-export const Logout = styled(BorderlessButton)``
+export const Logout = styled.TouchableOpacity``
 export const HighlightCards = styled.ScrollView.attrs({
     horizontal: true,
     showsHorizontalScrollIndicator: false,
@@ -93,7 +93,7 @@ export const Transactions = styled.View`
 export const TransactionList = styled(
     FlatList as new (props: FlatListProps<IDataListProps>) => FlatList<IDataListProps>
 ).attrs({
-    horizontal:false,
+    horizontal: false,
     showsVerticalScrollIndicator: false,
     contentContainerStyle: { paddingBottom: getBottomSpace() }
 })``
