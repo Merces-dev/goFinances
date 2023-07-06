@@ -25,13 +25,13 @@ O goFinances é um projeto de controle de finanças pessoais desenvolvido com Re
 git clone https://github.com/Merces-dev/goFinances.git
 ```
 
-3. Instale as dependências do projeto:
+2. Instale as dependências do projeto:
 
 ```
 npm install
 ```
 
-4. Inicie o servidor de desenvolvimento:
+3. Inicie o servidor de desenvolvimento:
 
 ```
 expo start
