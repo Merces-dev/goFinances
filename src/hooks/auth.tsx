@@ -62,8 +62,8 @@ function AuthProvider({ children }: AuthProviderProps) {
       const userInfo = await response.json();
       setUser({
         id: userInfo.id,
-        name: userInfo.email,
-        email: userInfo.given_name,
+        name: userInfo.given_name,
+        email: userInfo.email,
         photo: userInfo.picture,
       });
       await AsyncStorage.setItem(storageKey, JSON.stringify(user));
