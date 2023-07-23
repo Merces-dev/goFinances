@@ -8,9 +8,9 @@ interface Props {
 }
 export const HistoryCard = ({ color, title, amount }: Props) => {
   return (
-    <St.Container color={color}>
-      <St.Title>{title}</St.Title>
-      <St.Amount>{amount}</St.Amount>
+    <St.Container color={color} testID="history-card">
+      <St.Title testID="history-card-title">{title}</St.Title>
+      <St.Amount testID="history-card-amount">{amount}</St.Amount>
     </St.Container>
   );
 };
