@@ -4,7 +4,8 @@ import { Providers } from "../utils/tests";
 
 jest.mock("expo-auth-session");
 
-describe("Auth Hook", () => {  it("should be able to sign in with Google account.", async () => {
+describe("Auth Hook", () => {
+  it("should be able to sign in with Google account.", async () => {
     require("expo-auth-session").startAsync.mockResolvedValue({
       type: "success",
       params: { access_token: "google-token" },
@@ -47,5 +48,16 @@ describe("Auth Hook", () => {  it("should be able to sign in with Google account
     });
 
     expect(result.current.user).not.toHaveProperty("id");
+  });
+
+  it("should not be error with incorrectly Google parameters.", async () => {
+    const { result } = renderHook(() => useAuth(), { wrapper: Providers });
+    try {
+      await act(() => {
+        result.current.signInWithGoogle();
+      });
+    } catch (error) {
+      expect(result.current.user).toEqual({});
+    }
   });
 });
